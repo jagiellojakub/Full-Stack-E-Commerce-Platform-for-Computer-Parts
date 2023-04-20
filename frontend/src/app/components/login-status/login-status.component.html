@@ -1,0 +1,12 @@
+<div class="login-status-header">
+
+    <button routerLink="/order-tracking" class="btn btn-outline-info ms-2">Track</button>
+
+    <button *ngIf="!isAuthenticated" routerLink="/login" class="btn btn-outline-light ms-2">Login</button>
+
+    <button *ngIf="isAuthenticated" (click)="logout()" class="btn btn-outline-light ms-2">Logout</button>
+
+    <button *ngIf="isAuthenticated" routerLink="/profile" class="btn btn-outline-light ms-2">Profile</button>
+
+    <button *ngIf="isAuthenticated" routerLink="/order-history" class="btn btn-outline-light ms-2">Orders</button>
+</div>

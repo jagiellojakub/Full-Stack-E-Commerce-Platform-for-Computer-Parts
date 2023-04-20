@@ -1,0 +1,78 @@
+<div class="container">
+    <h3>Your orders</h3>
+    <div *ngIf="orderHistoryList.length > 0">
+        <table class="table table-bordered table-hover table-info table-striped">
+            <thead>
+            <tr>
+                <th width="20%">Order Tracking Number</th>
+                <th width="10%">Total Price</th>
+                <th width="10%">Total Quantity</th>
+                <th width="10%">Delivery Address</th>
+                <th width="10%">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="pointer" *ngFor="let tempOrderHistory of orderHistoryList" (click)="showOrderDetails(tempOrderHistory.id)">
+                <td>
+                    {{ tempOrderHistory.orderTrackingNumber }}
+                </td>
+                <td>
+                    {{ tempOrderHistory.totalPrice | currency: 'PLN' }}
+                </td>
+                <td>
+                    {{ tempOrderHistory.totalQuantity }}
+                </td>
+                <td>
+                  {{ tempOrderHistory.shippingAddress.city + " " + tempOrderHistory.shippingAddress.zipCode}}
+                  <br>
+                  {{ tempOrderHistory.shippingAddress.street }}
+                </td>
+                <td>
+                    {{ tempOrderHistory.dateCreated | date: 'medium' }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="currentOrder.length > 0">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Product Name
+              </th>
+              <th>
+
+              </th>
+              <th>
+                Unit Price
+              </th>
+              <th>
+                Quantity
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detail of currentOrder">
+              <td width="30%">
+                {{ detail.name }}
+              </td>
+              <td width="60%">
+                <img src="{{ detail.imageUrl }}" class="img-fluid" width="150px"/>
+              </td>
+              <td width="20%">
+                {{ detail.unitPrice }}
+              </td>
+              <td width="20%">
+                {{ detail.quantity }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    <div *ngIf="orderHistoryList.length == 0" class="alert alert-warning col-md12" role="alert">
+        No orders found
+    </div>
+
+</div>

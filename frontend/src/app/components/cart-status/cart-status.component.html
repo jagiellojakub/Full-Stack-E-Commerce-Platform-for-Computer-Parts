@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center me-2">
+    <button routerLink="/cart-details" class="btn btn-success p-0">
+      <span class="bg-success text-white h-100 d-inline-block rounded-start p-2">{{ totalPrice > 0 ? (totalPrice - shippingPrice | currency: "PLN") : '0' | currency: "PLN" }}</span>
+      <span class="bg-light text-dark h-100 d-inline-block rounded-end p-2">{{ totalQuantity }}</span>
+    </button>
+  </div>
+  

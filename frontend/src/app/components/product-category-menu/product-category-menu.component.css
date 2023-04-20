@@ -1,0 +1,17 @@
+@media (max-width: 991px) {
+    .nav-item {
+      flex: 0 0 auto;
+      max-width: calc(100% / 3);
+      margin-bottom: 10px;
+    }
+  
+    .nav-item a {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    .navbar-nav {
+      justify-content: space-around;
+    }
+  }

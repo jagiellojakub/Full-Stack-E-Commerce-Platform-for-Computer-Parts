@@ -1,0 +1,11 @@
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.pagination-container select {
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+}

@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h2 class="text-center mb-4">Order Tracking</h2>
+        <div class="input-group mb-5">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter order tracking number"
+            [(ngModel)]="orderTrackingNumber"
+          />
+          <button (click)="handleSearch()" class="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="orderData" class="mt-5">
+      <div *ngIf="!isAuthenticated" class="text-center">
+        <p>Please save your order tracking number for future reference.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Customer</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Name:</strong>
+            {{ orderData._embedded.customer.firstName }}
+            {{ orderData._embedded.customer.lastName }}
+          </p>
+          <p>
+            <strong>Email:</strong> {{ orderData._embedded.customer.email }}
+          </p>
+        </div>
+      </div>
+  
+      <div class="card mt-3">
+        <div class="card-header">
+          <h3>Ordered Items</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li
+            *ngFor="let item of orderData.orderItems"
+            class="list-group-item d-flex align-items-center"
+          >
+            <img
+              [src]="item.imageUrl"
+              class="mr-3"
+              alt="Product image"
+              width="100"
+            />
+            <div class="flex-grow-1">{{ item.name }}</div>
+            <div class="ml-3">
+              <strong>Quantity:</strong> {{ item.quantity }}
+            </div>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="card mt-3">
+        <div class="card-header">
+          <h3>Order Details</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Total Quantity:</strong> {{ orderData.totalQuantity }}
+          </p>
+          <p>
+            <strong>Total Price:</strong> {{ orderData.totalPrice | currency: "PLN"}}
+          </p>
+          <p>
+            <strong>Status:</strong> {{ orderData.status }}
+          </p>
+  
+          <h4>Shipping Address</h4>
+          <p>
+            {{ orderData.shippingAddress.street }},
+            {{ orderData.shippingAddress.city }},
+            {{ orderData.shippingAddress.state }},
+            {{ orderData.shippingAddress.country }},
+            {{ orderData.shippingAddress.zipCode }}
+          </p>
+  
+          <h4>Billing Address</h4>
+          <p>
+            {{ orderData.billingAddress.street }},
+            {{ orderData.billingAddress.city }},
+            {{ orderData.billingAddress.state }},
+            {{ orderData.billingAddress.country }},
+            {{ orderData.billingAddress.zipCode }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

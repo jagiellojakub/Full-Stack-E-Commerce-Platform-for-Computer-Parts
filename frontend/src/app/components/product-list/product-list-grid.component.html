@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row row-cols-3 row-cols-sm-3 row-cols-md-3 g-3">
+    <div class="col" *ngFor="let tempProduct of products">
+      <div class="product-box">
+        <span class = "item-name" routerLink="/products/{{ tempProduct.id }}">
+            <img src="{{tempProduct.imageUrl}}">
+        </span>
+        <span class = "item-name" routerLink="/products/{{ tempProduct.id }}">
+            <h1>{{ tempProduct.name }}</h1>
+        </span>
+        <div class="price">{{tempProduct.unitPrice | currency:'PLN'}}</div>
+        <button (click)="addToCart(tempProduct)" class="btn btn-dark btn-sm">Add to cart</button>
+      </div>
+    </div>
+  </div>
+  
+    <div class="footer-pagination">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-container">
+                    <ngb-pagination [(page)]="thePageNumber"
+                                    [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements"
+                                    [maxSize]="3"
+                                    [boundaryLinks]="true"
+                                    (pageChange)="listProducts()">
+                    </ngb-pagination>
+                    <div class="page-size-container">
+                        <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+                            <option>5</option>
+                            <option selected="true">10</option>
+                            <option>20</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

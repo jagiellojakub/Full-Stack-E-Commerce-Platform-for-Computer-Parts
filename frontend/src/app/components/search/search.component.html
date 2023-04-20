@@ -1,0 +1,10 @@
+<div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-flex align-items-center">
+    <input #myInput type="text" 
+           class="form-control form-control-dark text-bg-light" 
+           placeholder="Search.."
+           (keyup.enter)="doSearch(myInput.value)">
+
+    <button (click)="doSearch(myInput.value)" class="btn btn-warning ms-2" type="submit">
+        Search
+    </button>
+</div>

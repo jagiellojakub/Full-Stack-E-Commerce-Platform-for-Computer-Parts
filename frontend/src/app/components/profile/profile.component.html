@@ -1,0 +1,153 @@
+<div class="container">
+    <button (click)="showUserAddressForm()" class="btn btn-primary">Add address</button>
+    <div *ngIf="showForm">
+        <form [formGroup]="userAddressFormGroup" (ngSubmit)="onSubmit()">
+            <div formGroupName="userAddress" class="form-area mb-3">
+
+                <div class="row">
+                    <div class="col-md-2"> <label>Country</label></div>
+                    <div class="col-md-9">
+                        <div class="input-space my-auto">
+                            <select formControlName="country" (change)="getStates('userAddress')">
+                                <option *ngFor="let country of countries" [ngValue]="country">
+                                    {{ country.name }}
+                                </option>
+                            </select>
+
+                            <div *ngIf="userAddressCountry.invalid && (userAddressCountry.dirty || userAddressCountry.touched)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="userAddressCountry.errors['required']">
+                                    Country is required
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"> <label>State</label></div>
+                    <div class="col-md-9">
+                        <div class="input-space my-auto">
+                            <select formControlName="state">
+                                <option *ngFor="let state of states" [ngValue]="state">
+                                    {{ state.name }}
+                                </option>
+                            </select>
+
+                            <div *ngIf="userAddressState.invalid && (userAddressState.dirty || userAddressState.touched)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="userAddressState.errors['required']">
+                                    State is required
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"> <label>City</label></div>
+                    <div class="col-md-9">
+                        <div class="input-space my-auto">
+                            <input formControlName="city" type="text">
+
+                            <div *ngIf="userAddressCity.invalid && (userAddressCity.dirty || userAddressCity.touched)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="userAddressCity.errors['required'] || userAddressCity.errors['notOnlyWhitespace']">
+                                    City is required
+                                </div>
+                                <div *ngIf="userAddressCity.errors['minlength']">
+                                    City must be at least 2 characters long
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"> <label>Zip Code</label></div>
+                    <div class="col-md-9">
+                        <div class="input-space my-auto">
+                            <input formControlName="zipCode" type="text">
+
+                            <div *ngIf="userAddressZipCode.invalid && (userAddressZipCode.dirty || userAddressZipCode.touched)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="userAddressZipCode.errors['required'] || userAddressZipCode.errors['notOnlyWhitespace']">
+                                    Zip Code is required
+                                </div>
+
+                                <div *ngIf="userAddressZipCode.errors['minlength']">
+                                    Zip Code is too short
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2"> <label>Street</label></div>
+                    <div class="col-md-9">
+                        <div class="input-space my-auto">
+                            <input formControlName="street" type="text">
+
+                            <div *ngIf="userAddressStreet.invalid && (userAddressStreet.dirty || userAddressStreet.touched)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="userAddressStreet.errors['required'] || userAddressStreet.errors['notOnlyWhitespace']">
+                                    Street Address is required
+                                </div>
+                                <div *ngIf="userAddressStreet.errors['minlength']">
+                                    Street must be at least 2 characters long
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-info">Add address</button>
+            </div>
+
+        </form>
+    </div>
+
+    <table class="table table-hover" *ngIf="userAddresses.length > 0" >
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip Code</th>
+                <th>Default address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let address of userAddresses">
+                <td>{{ address.country }}</td>
+                <td>{{  address.street  }}</td>
+                <td>{{  address.city  }}</td>
+                <td>{{  address.state  }}</td>
+                <td>{{  address.zipCode  }}</td>
+                <td class="align-items">
+                    <ng-container *ngIf="address.default; else notDefault"><button class="btn btn-link btn-sm me-2"><i class="fa-solid fa-check"></i></button></ng-container>
+                    <ng-template #notDefault><button class="btn btn-link btn-sm" (click)="setAsDefault(address)"><i class="fa-solid fa-xmark"></i></button></ng-template>
+                </td>
+                <td>
+                    <button class="btn btn-link btn-sm" id="delete-btn-{{address.id}}" (click)="onDeleteButtons(address)"><i class="fa-solid fa-trash"></i></button>
+                    <button class="btn btn-link btn-sm me-2 hide" id="confirm-delete-btn-{{address.id}}" (click)="onConfirmDeleteBtnClick(address)"><i class="fa-solid fa-check"></i></button>
+                    <button class="btn btn-link btn-sm hide" id="cancel-delete-btn-{{address.id}}" (click)="onCancelDeleteButtons(address)"><i class="fa-solid fa-xmark"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
