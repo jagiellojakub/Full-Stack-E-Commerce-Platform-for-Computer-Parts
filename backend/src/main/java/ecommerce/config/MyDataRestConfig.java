@@ -48,6 +48,16 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // disable HTTP methods for Order: PUT, POST, DELETE and PATCH
         disableHttpMethods(Order.class, config, theUnsupportedActions);
 
+        // disable HTTP methods for OrderItem: PUT, POST, DELETE and PATCH
+        disableHttpMethods(OrderItem.class, config, theUnsupportedActions);
+
+        // disable HTTP methods for Customer: PUT, POST, DELETE and PATCH
+        disableHttpMethods(Customer.class, config, theUnsupportedActions);
+
+        // disable HTTP methods for ShippingMethod: PUT, POST, DELETE and PATCH
+        disableHttpMethods(ShippingMethod.class, config, theUnsupportedActions);
+
+
         // expose Ids
         exposeIds(config);
     }
@@ -55,8 +65,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     private static void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
         config.getExposureConfiguration()
                 .forDomainType(theClass)
-                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+                .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
     }
 
     private void exposeIds(RepositoryRestConfiguration config) {

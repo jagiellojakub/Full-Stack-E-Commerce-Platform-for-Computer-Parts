@@ -1,9 +1,6 @@
 package ecommerce.dto;
 
-import ecommerce.entity.Address;
-import ecommerce.entity.Customer;
-import ecommerce.entity.Order;
-import ecommerce.entity.OrderItem;
+import ecommerce.entity.*;
 import lombok.Data;
 
 import java.util.Set;
@@ -14,5 +11,6 @@ public class Purchase {
     private Address shippingAddress;
     private Address billingAddress;
     private Order order;
+    private ShippingMethod shippingMethod;
     private Set<OrderItem> orderItems;
 }

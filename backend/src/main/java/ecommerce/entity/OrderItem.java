@@ -1,5 +1,6 @@
 package ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -17,6 +18,8 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
+    @Column(name = "name")
+    private String name;
     @Column(name = "image_url")
     private String imageUrl;
     @Column(name = "unit_price")
@@ -27,5 +30,6 @@ public class OrderItem {
     private UUID productId;
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private Order order;
 }

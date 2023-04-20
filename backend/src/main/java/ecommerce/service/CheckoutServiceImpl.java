@@ -10,6 +10,7 @@ import ecommerce.dto.PurchaseResponse;
 import ecommerce.entity.Customer;
 import ecommerce.entity.Order;
 import ecommerce.entity.OrderItem;
+import ecommerce.entity.ShippingMethod;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,9 +44,11 @@ public class CheckoutServiceImpl implements CheckoutService{
         Set<OrderItem> orderItems = purchase.getOrderItems();
         orderItems.forEach(item -> order.add(item));
 
-        // populate order with billingAddress and shippingAddress
+        // populate order with billingAddress and shippingAddress and shippingMethod
         order.setBillingAddress(purchase.getBillingAddress());
         order.setShippingAddress(purchase.getShippingAddress());
+        order.setShippingMethod(purchase.getShippingMethod());
+        order.setStatus("Awaiting Payment");
 
         // populate customer with order
         Customer customer = purchase.getCustomer();
@@ -62,6 +65,7 @@ public class CheckoutServiceImpl implements CheckoutService{
 
         // save to db
         customerRepository.save(customer);
+
 
         // return a response
         return new PurchaseResponse(orderTrackingNumber);
